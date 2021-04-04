@@ -1,0 +1,50 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <div id="newtoweet">
+            <form method="POST", action="{% url 'createToweet' %}">
+                {% csrf_token %}
+                <h1 for="toweetbody">New Toweet</h1>
+                <textarea name="toweetbody" id="toweetbody" rows="3" cols="100" placeholder="What's toweeting?"></textarea><br>
+                <button class="btn btn-info">Toweet</button>
+            </form>
+        </div>
+    {% endif %}
+    {% for i in page_obj %}
+        <div id="userToweets">
+            <a href="{% url 'userinfo' i.PostCreator %}"><h1>{{ i.PostCreator }}</h1></a>
+            <p id="toweetContent">{{i.PostContent}}</p>
+            <div id="edit-view">
+                <textarea rows="4" cols="66">{{ i.PostContent }}</textarea><br>
+                <p id="postId">{{i.id}}</p>
+                <button onclick="saveButton(this)" id="saveButton">Save</button>
+            </div>
+            <h2 id="toweetDate">{{i.PostCreatedAt}}</h2>
+            <h3 style="display:inline;">{{i.PostLikes}}</h3>
+            <p id="postId">{{i.id}}</p>
+            <i onclick="myFunction(this, this.previousElementSibling)" class="fa fa-thumbs-o-up"></i>
+            {% if i.PostCreator == user %}
+                <a onclick="editButton(this)" id="editButton">Edit this toweet</a><br><br>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo;Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

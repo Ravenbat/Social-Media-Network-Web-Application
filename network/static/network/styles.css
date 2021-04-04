@@ -1,0 +1,35 @@
+#newtoweet {
+    position:relative;
+    margin-left:20px;
+    border: 1px solid black;
+    width:40%;
+    left:28.5%;
+}
+#userDetails {
+    border: 1px solid black;
+    width:40%;
+    position:relative;
+    left: 30%;
+}
+
+#userToweets {
+    border: 1px solid black;
+    width:40%;
+    position:relative;
+    left: 30%;
+    display:block;
+    font-size:20px;
+}
+#toweetDate {
+    margin-left: 60%;
+    font-size:15px;
+}
+.edit-view {
+    position:relative;
+    width: 40%;
+}
+textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
